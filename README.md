@@ -30,9 +30,6 @@ use:
 SelfStrike.pl
 
  -t|type SqlScanner -u|url 'site' -p|port 80 -timeout 5 -re|request 'q=1&s=1' -m|method 'GET|POST'    *Scanner Sql Injection Vulnerability*
- 
-	-p|port '80' Default
-	-timeout '5' Default
 
  -t|type PortScanner -i|ip 'ip' -p|port 80
  -t|type PortScanner -i|ip 'ip' -p|port 80 -timeout 5 -w|proto 'tcp'    *Scanner Port*
