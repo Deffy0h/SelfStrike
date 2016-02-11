@@ -15,6 +15,9 @@ SelfStrike é um scanner de vulnerabilidade, portas, ips, brute force e muito ma
 *Brute Force in SSH
 *Brute Force in Login Painel
 *Brute Force in MD5
+*Encrypt TEXT to MD5
+*Encrypt TEXT to Deffy0h-Crypt
+*Descrypt Deffy0h-Crypt to TEXT
 
 
 	.d88888b           dP .8888b .d88888b    dP            oo dP                
@@ -70,3 +73,12 @@ SelfStrike.pl
  
   Cross Site Request Fogery:
  -t|type SelfStrike-CSRF -re|request 'q=1&s=1' -m|method 'GET|POST' -n|number '25'
+ 
+  Encrypt MD5 HEX
+ -t|type SelfStrike-MD5 -pass 'text'
+
+  Encrypt Deffy0h-Crypt
+ -t|type SelfStrike-Encrypt -k|key 'opcional' -pass 'mensage' -s 'file.txt'
+
+ Descrypt Deffy0h-Crypt
+ -t|type SelfStrike-Descrypt -k|key 'key public' -pass 'text_deffy0h_encrypt' -s 'file.txt'
