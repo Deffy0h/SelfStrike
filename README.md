@@ -74,11 +74,11 @@ SelfStrike.pl
   Cross Site Request Fogery:
  -t|type SelfStrike-CSRF -re|request 'q=1&s=1' -m|method 'GET|POST' -n|number '25'
  
-  Encrypt MD5 HEX
+  Encrypt MD5 HEX:
  -t|type SelfStrike-MD5 -pass 'text'
 
-  Encrypt Deffy0h-Crypt
+  Encrypt Deffy0h-Crypt:
  -t|type SelfStrike-Encrypt -k|key 'opcional' -pass 'mensage' -s 'file.txt'
 
- Descrypt Deffy0h-Crypt
+ Descrypt Deffy0h-Crypt:
  -t|type SelfStrike-Descrypt -k|key 'key public' -pass 'text_deffy0h_encrypt' -s 'file.txt'
