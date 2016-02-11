@@ -55,9 +55,9 @@ SelfStrike.pl
  \n
  -t|type SelfStrike-MD5 -pass 'text' *Encrypt MD5 HEX*
  \n
- -t|type SelfStrike-Encrypt -k|key 'opcional' -pass 'mensage' -s 'file.txt' *EnCrypt Deffy0h*
+ -t|type SelfStrike-Encrypt -k|key 'opcional' -pass 'mensage' -s 'file.txt' *EnCrypt Deffy0h-Crypt*
  \n
- -t|type SelfStrike-Descrypt -k|key 'key public' -pass 'text_deffy0h_encrypt' -s 'file.txt' *Descrypt Deffy0h*
+ -t|type SelfStrike-Descrypt -k|key 'key public' -pass 'text_deffy0h_encrypt' -s 'file.txt' *Descrypt Deffy0h-Crypt*
  \n\n\n
 ";
 
