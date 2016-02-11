@@ -9,6 +9,8 @@ use Net::Ping;
 #use Net::SSH::Perl;
 use Digest::MD5 qw(md5_hex);
 
+my $rrq="\tUse a-vontade, nao copie faca ;)";
+
 my $modeuser="
 \n\n\n
 use:
@@ -50,6 +52,12 @@ SelfStrike.pl
  -t|type SelfStrike-Joomla -u|url 'deffy0h.tk' *Joomla Vulnerability*
  \n
  -t|type SelfStrike-XSS -u|url 'deffy0h.tk' -re 's=<p>xss</p>' *XSS Vulnerability*
+ \n
+ -t|type SelfStrike-MD5 -pass 'text' *Encrypt MD5 HEX*
+ \n
+ -t|type SelfStrike-Encrypt -k|key 'opcional' -pass 'mensage' -s 'file.txt' *EnCrypt Deffy0h*
+ \n
+ -t|type SelfStrike-Descrypt -k|key 'key public' -pass 'text_deffy0h_encrypt' -s 'file.txt' *Descrypt Deffy0h*
  \n\n\n
 ";
 
@@ -91,6 +99,7 @@ oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
 		
 	\t\tSOMOS BRASILEIROS
 	\tDEFFY0H Todos os direitos resevados
+	$rrq
 		
     $modeuser
 	
@@ -112,6 +121,7 @@ my $user="";
 my $pass="";
 my $save="";
 my $number=0;
+my $key=0;
 
 
 GetOptions(
@@ -128,6 +138,7 @@ GetOptions(
 	"pass=s"=>\$pass,
 	"s|save=s"=>\$save,
 	"n|number=i"=>\$number,
+	"k|key=i"=>\$key
 
 );
 
@@ -168,8 +179,138 @@ if($type eq "SelfStrike-Joomla"    || $type eq "selfstrike-joomla"){
 if($type eq "SelfStrike-XSS"    || $type eq "selfstrike-xss"){
 &SelfStrike_XSS
 }
-if($type eq "BruteForce-md5"    || $type eq "brutetorce-md5"){
+if($type eq "BruteForce-MD5"    || $type eq "brutetorce-md5"){
 &BruteForce_md
+}
+if($type eq "SelfStrike-MD5" || $type eq "selfstrike-md5"){
+&SelfStrike_md
+}
+if($type eq "SelfStrike-Encrypt" || $type eq "selfstrike-encrypt"){
+&SelfStrike_EnCrypt
+}
+if($type eq "SelfStrike-Descrypt" || $type eq "selfstrike-descrypt"){
+&SelfStrike_DesCrypt
+}
+
+sub SelfStrike_DesCrypt(){
+
+print "\n\n-=======================================================-\n";
+print "\t\t\SelfStrike-Descrypt\n";
+print "-=======================================================-\n\n";
+
+#@descrypt
+
+unless($key){
+print "[-] Key\n";
+exit;
+}
+
+if($pass!~m/:/){
+print "[-] ERRO CRYPT\n";
+exit;
+}
+
+my @words=split /:/,$pass;
+
+my $str="";
+my $scii="";
+my $c=0;
+my $len=scalar(@words);
+
+my $key_private=$key/8;
+
+
+while($c<$len){
+$str=$str.chr(@words[$c]/$key_private);
+$scii=$scii.(@words[$c]/$key_private)." ";
+#print $char;
+$c++;
+}
+
+#open($a,">output.txt");
+#$a->print($str);
+
+print "[+] N=>$len\n";
+print "[+] ASCII=> $scii\n\n";
+print "[+] Key=> $key\n";
+print "[+] Private Key=> $key_private\n\n";
+print "0000000000000000000000000000--- DESCRYPT ---0000000000000000000000000000\n\n\n";
+print $str."\n\n";
+exit;
+
+#######################################################################
+#*:?
+
+if($save ne ""){
+
+}
+
+}
+
+sub SelfStrike_EnCrypt(){
+
+print "\n\n-=======================================================-\n";
+print "\t\t\SelfStrike-EnCrypt\n";
+print "-=======================================================-\n\n";
+
+#DEFFY0h Convert ASCII in PERL
+
+my $time=time();
+my $private;
+
+$private=((int(rand(25))*(int(rand(1000)))));
+
+unless($key){
+$key=$private*8;
+}
+
+if($pass ne ""){
+my $str="";
+my $c=0;
+my $len=length($pass);
+while($c<$len){
+my $char=substr($pass,$c,($len-$c));
+$encSTR=$encSTR.":".ord($char)*$private;
+$str=$str.":".ord($char);
+#print $char;
+$c++;
+}
+
+#open($a,">output.txt");
+#$a->print($encSTR);
+
+print "[+] N=>$len\n";
+print "[+] TEXT=> $pass\n\n";
+print "[+] ASCII => $str\n\n";
+print "[+] Private Key=> $private\n";
+print "[+] Key=> $key\n\n";
+print "0000000000000000000000000000--- ENCRYPT ---0000000000000000000000000000\n\n\n";
+print $encSTR;
+print "\n\n\n";
+
+if($save ne ""){
+
+}
+
+
+}
+}
+
+sub SelfStrike_md(){
+
+print "\n\n-=======================================================-\n";
+print "\t\t\SelfStrike-MD5\n";
+print "-=======================================================-\n\n";
+
+unless($pass){
+$pass="password";
+}
+
+$md5=md5_hex($pass);
+
+print "[+] TEXT=> $pass\n";
+print "[+] MD5=> $md5\n\n";
+
 }
 
 sub BruteForce_md(){
