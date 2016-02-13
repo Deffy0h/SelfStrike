@@ -930,10 +930,15 @@ if($h=HTTP::Request->new(GET=>$url)){
 print "[+] success\n";
 }else{
 print "[-] fail\n";
+exit;
+}
+
+if($pass=~m/.txt/){
+print "[+] FILE=> $pass\n";
 }
 print "-=======================================================-\n";
 
-print "\n[+] connecting to server FTP\n\n";
+print "\n[+] connecting to server FTP\n";
 
 
 if($pass eq "00"){
@@ -956,6 +961,9 @@ or die("[-] erro connection to FTP\n");
 my $opa="";
 
 if($pass ne "00"){
+
+print "[+] OPEN FILE $pass\n\n";
+
 open(a,"<",$pass) or die("[-] file '$pass' can't be opened\n");
 my @pass=<a>;
 
