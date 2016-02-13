@@ -59,7 +59,7 @@ SelfStrike.pl
  \n
  -t|type SelfStrike-Descrypt -k|key 'key public' -pass 'text_deffy0h_encrypt' -s 'file.txt' *Descrypt Deffy0h-Crypt*
  \n
- -t|type SelfStrike-SHELL -save 'shell.php'
+ -t|type SelfStrike-SHELL -save 'shell.php' *Create Shell .PHP*
  \n\n\n
 ";
 
@@ -215,6 +215,11 @@ if($type eq "SelfStrike-SHELL" || $type eq "selfstrike-shell"){
 }
 
 sub SelfStrike_Shell(){
+
+print "\n\n-=======================================================-\n";
+print "\t\t\SelfStrike-SHELL\n";
+print "-=======================================================-\n\n";
+
 unless($save){
 $save="SelfStrike.php";
 }
