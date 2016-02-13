@@ -18,6 +18,7 @@ SelfStrike é um scanner de vulnerabilidade, portas, ips, brute force e muito ma
 *Encrypt TEXT to MD5
 *Encrypt TEXT to Deffy0h-Crypt
 *Descrypt Deffy0h-Crypt to TEXT
+*Create SHELL
 
 
 	.d88888b           dP .8888b .d88888b    dP            oo dP                
@@ -82,3 +83,6 @@ SelfStrike.pl
 
  Descrypt Deffy0h-Crypt:
  -t|type SelfStrike-Descrypt -k|key 'key public' -pass 'text_deffy0h_encrypt' -s 'file.txt'
+ 
+ Create Shell .PHP:
+ -t|type SelfStrike-SHELL -s|save 'shell.php'
