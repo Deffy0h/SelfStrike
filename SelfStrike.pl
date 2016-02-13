@@ -59,7 +59,7 @@ SelfStrike.pl
  \n
  -t|type SelfStrike-Descrypt -k|key 'key public' -pass 'text_deffy0h_encrypt' -s 'file.txt' *Descrypt Deffy0h-Crypt*
  \n
- -t|type SelfStrike-SHELL -save 'shell.php' *Create Shell .PHP*
+ -t|type SelfStrike-SHELL -s|save 'shell.php' *Create Shell .PHP*
  \n\n\n
 ";
 
