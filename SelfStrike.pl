@@ -963,10 +963,10 @@ my $opa="";
 if($pass ne "00"){
 
 print "[+] OPEN FILE $pass\n\n";
-if($pass=~m/.txt$/){
+#if($pass=~m/.txt$/){
 open(a,"<",$pass) or die("[-] file '$pass' can't be opened\n");
 my @pass=<a>;
-}
+#}
 
 chomp($opa=$pass[$c]);
 if(scalar(@pass)<$c){
@@ -1185,6 +1185,13 @@ $c_port++;
 }
 
 sub SqlScanner(){
+
+print "\n\n";
+print "-========================================================-";
+print "\t\nSqlScanner\n";
+print "-========================================================-";
+print "\n\n";
+
 unless($url){
 print "\ntyping a DNS|URL -u 'site'\n";
 print $modeuser;
