@@ -133,7 +133,7 @@ my $timeout="";
 my $type="";
 my $r="?";
 my $method="GET";
-my $REQ=$r."s='1&p='1&q='1";
+my $REQ=$r."s='1&p='1&q='1&id='1";
 my $OK_HTTP=200;
 my $proto="";
 my $user="";
@@ -933,7 +933,7 @@ print "[-] fail\n";
 exit;
 }
 
-if($pass=~m/.txt/){
+if($pass=~m/.txt$/){
 print "[+] FILE=> $pass\n";
 }
 print "-=======================================================-\n";
@@ -963,9 +963,10 @@ my $opa="";
 if($pass ne "00"){
 
 print "[+] OPEN FILE $pass\n\n";
-
+if($pass=~m/.txt$/){
 open(a,"<",$pass) or die("[-] file '$pass' can't be opened\n");
 my @pass=<a>;
+}
 
 chomp($opa=$pass[$c]);
 if(scalar(@pass)<$c){
@@ -1223,7 +1224,7 @@ if($REQ!~m/[?]/){
 $REQ="?$REQ";
 }
 
-my $temp_url="http://www.".$url.":$port/".$REQ;
+my $temp_url=$url.$REQ;
 
 if($method=="GET" || $method=="get"){
 print "[+] HTTP:REQUEST, GET $temp_url ProtocolVersion:HTTP/1.1\n";
@@ -1239,7 +1240,7 @@ chomp $html;
 if($html=~$qInjection){
 print "\n\n [+] $temp_url <*p>SQL INJECTION<*p> Vulnerability* \n\n";
 }else{
-print "\n[+] was not found <*p>SQL INJECTION<*p> to $temp_url";
+print "\n[-] was not found <*p>SQL INJECTION<*p> to $temp_url";
 exit;
 }
 }else{
