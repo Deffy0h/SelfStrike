@@ -45,44 +45,44 @@ SelfStrike é um scanner de vulnerabilidade, portas, ips, brute force e muito ma
 
 
 
-use:
-SelfStrike.pl
-
- Scanner Sql Injection Vulnerability:
- -t|type SqlScanner -u|url 'site' -p|port 80 -timeout 5 -re|request 'q=1&s=1' -m|method 'GET|POST'
- 
- Joomla Vulnerability:
- -t|type SelfStrike-Joomla -u|url 'deffy0h.tk'
-
- FingerPrint in IP:
- -t|type InfoIp -i|ip 'ip'
-
- Brute Force in FTP:
- -t|type BruteForce-ftp -user 'admin' -pass 'wordlist.txt' -u 'site'
-
- Brute Force in Md5:
- -t|type BruteForce-MD5 -re 'MD5' -pass 'wordlist.txt'
-
- Scanner IP:
- -t|type SelfStrike-Ip -i|ip '192.168.0.c' -p|port '80' -timeout 5 -s|save 'output.txt'
-
- FingerPrint in URL
- -t|type SelfStrike-Url -u|url 'deffy0h.tk'
- 
-  Scanner XSS Vulnerability
- -t|type SelfStrike-XSS -u|url 'deffy0h.tk'
- 
-  Cross Site Request Fogery:
- -t|type SelfStrike-CSRF -re|request 'q=1&s=1' -m|method 'GET|POST' -n|number '25'
- 
-  Encrypt MD5 HEX:
- -t|type SelfStrike-MD5 -pass 'text'
-
-  Encrypt Deffy0h-Crypt:
- -t|type SelfStrike-Encrypt -k|key 'opcional' -pass 'mensage' -s 'file.txt'
-
- Descrypt Deffy0h-Crypt:
- -t|type SelfStrike-Descrypt -k|key 'key public' -pass 'text_deffy0h_encrypt' -s 'file.txt'
- 
- Create Shell .PHP:
- -t|type SelfStrike-SHELL -s|save 'shell.php'
+		use:
+		SelfStrike.pl
+		
+		 Scanner Sql Injection Vulnerability:
+		 -t|type SqlScanner -u|url 'site' -p|port 80 -timeout 5 -re|request 'q=1&s=1' -m|method 'GET|POST'
+		 
+		 Joomla Vulnerability:
+		 -t|type SelfStrike-Joomla -u|url 'deffy0h.tk'
+		
+		 FingerPrint in IP:
+		 -t|type InfoIp -i|ip 'ip'
+		
+		 Brute Force in FTP:
+		 -t|type BruteForce-ftp -user 'admin' -pass 'wordlist.txt' -u 'site'
+		
+		 Brute Force in Md5:
+		 -t|type BruteForce-MD5 -re 'MD5' -pass 'wordlist.txt'
+		
+		 Scanner IP:
+		 -t|type SelfStrike-Ip -i|ip '192.168.0.c' -p|port '80' -timeout 5 -s|save 'output.txt'
+		
+		 FingerPrint in URL
+		 -t|type SelfStrike-Url -u|url 'deffy0h.tk'
+		 
+		  Scanner XSS Vulnerability
+		 -t|type SelfStrike-XSS -u|url 'deffy0h.tk'
+		 
+		  Cross Site Request Fogery:
+		 -t|type SelfStrike-CSRF -re|request 'q=1&s=1' -m|method 'GET|POST' -n|number '25'
+		 
+		  Encrypt MD5 HEX:
+		 -t|type SelfStrike-MD5 -pass 'text'
+		
+		  Encrypt Deffy0h-Crypt:
+		 -t|type SelfStrike-Encrypt -k|key 'opcional' -pass 'mensage' -s 'file.txt'
+		
+		 Descrypt Deffy0h-Crypt:
+		 -t|type SelfStrike-Descrypt -k|key 'key public' -pass 'text_deffy0h_encrypt' -s 'file.txt'
+		 
+		 Create Shell .PHP:
+		 -t|type SelfStrike-SHELL -s|save 'shell.php'
